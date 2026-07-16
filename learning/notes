@@ -1,0 +1,1 @@
+g++ -std=c++14 -o smart_prt_test smart_ptr.cpp
