@@ -5,3 +5,4 @@ alias llama_cli='/home/zoe/llama.cpp/build/bin/llama-cli -m /home/zoe/llama.cpp/
 alias llama_server='/home/zoe/llama.cpp/build/bin/llama-server -m /home/zoe/llama.cpp/models/qwen2.5-3b-instruct-q4_k_m.gguf --host 0.0.0.0  --port 8001  -c 4096 --temp 0.2 --jinja'
 alias agent_env='source /home/zoe/llama.cpp/agent_env/bin/activate'
 alias t='tmux attach -t 0'
+alias rag_poc='/home/zoe/AI/rag_env/bin/python /home/zoe//AI/rag_poc/rag_poc'

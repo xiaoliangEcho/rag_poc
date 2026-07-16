@@ -10,8 +10,9 @@ import os
 from langchain_openai import ChatOpenAI
 import pdb
 import re
+import readline
 
-debug=True
+debug=False
 
 # 1. 加载文档
 print("step1 loading documents")
@@ -27,7 +28,10 @@ for file in os.listdir(docs_dir):
 
 # 2. 分割文本
 print("step2 split documents")
-text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
+text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, 
+                                               chunk_overlap=100, 
+                                               separators=["\n\n", "\n", "。", "！", "？", "；", "，", " ", ""],
+                                               length_function=len,)
 chunks = text_splitter.split_documents(documents)
 
 # 3. 创建向量存储
@@ -35,9 +39,9 @@ print("step3 making vectors from documents")
 embeddings = HuggingFaceEmbeddings(model_name="/home/zoe/AI/rag_poc/all-MiniLM-L6-v2")
 vectorstore = Chroma.from_documents(documents=chunks, embedding=embeddings)
 retriever = vectorstore.as_retriever(search_type="mmr",
-                                     search_kwargs={"k": 5,          # 最终返回5个
-                                                    "fetch_k": 30,   # 候选池30个
-                                                    "lambda_mult": 0.3  # 偏向多样性（因为你的文档有不同主题）
+                                     search_kwargs={"k": 3,          # 最终返回3个
+                                                    "fetch_k": 15,   # 候选池15个
+                                                    "lambda_mult": 0.5  # 偏向多样性（因为你的文档有不同主题）
                                                     })
 
 # 4. 初始化模型
@@ -97,6 +101,7 @@ def llm_debug(question='hello'):
 while True:
     question = input("\n❓ 请输入您的问题: ").strip()
     question = re.sub(r'[\x00-\x1F\x7F]', '', question).strip()
+    print(f"question is {question}")
     
     # 退出判断
     if question.lower() in ['exit', 'quit', '退出']:
@@ -125,9 +130,9 @@ while True:
             print() # 输出结束后换行
         else:
             print("不查询RAG...")
-            if debug:
-                print("llm debuging")
-                llm_debug(question)
+            # if debug:
+            #     print("llm debuging")
+            #     llm_debug(question)
             print("\n💡 准备回答中...: ", end="", flush=True)
             # 使用 stream 方法获取一个生成器，逐块接收内容
             for chunk in llm.stream(question):
