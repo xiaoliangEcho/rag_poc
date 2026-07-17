@@ -12,7 +12,7 @@ import pdb
 import re
 import readline
 
-debug=False
+debug=True
 
 # 1. 加载文档
 print("step1 loading documents")
@@ -51,7 +51,7 @@ llm = ChatOpenAI(
     base_url="http://localhost:8001/v1",
     api_key="sk-no-key-required",
     temperature=0,
-    max_tokens=256
+    max_tokens=1024
 )
 
 # 5. 构建 RAG 链
