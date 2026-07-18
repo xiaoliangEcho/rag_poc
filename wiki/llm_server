@@ -1,0 +1,6 @@
+commit dec5ca5577d6042b4e870fadf4087c5b9b8d3a70 (HEAD -> master, tag: b9763, origin/master, origin/HEAD)
+Author: Matt Thompson <111157855+boondocklabs@users.noreply.github.com>
+Date:   Mon Jun 22 14:03:12 2026 -0700
+
+    server : Add id to tool call responses api (#24882)
+
