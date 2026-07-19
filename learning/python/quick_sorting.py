@@ -8,7 +8,7 @@ def quick_sort(left=0, right=0):
 
     # finish condition
     if initial_left >= initial_right:
-        print("sorting done")
+        print(f"sorting done: {left} {right}")
         return
     
     # set pivot

@@ -24,7 +24,7 @@ quick_sorting() {
     # finish condition
     if [ $left -ge $right ]
     then
-        echo "sorting done"
+        echo "sorting done: $left $right"
         return
     fi
     pivot="${numbers[$left]}"
@@ -73,7 +73,7 @@ numbers=(
 # array append value
 # numbers+=(7)
 len=${#numbers[@]}
-echo "original:"
+echo "The original list:"
 for num in "${numbers[@]}"
 do
     echo -n "$num "
@@ -81,7 +81,7 @@ done
 echo
 quick_sorting 0 $((len-1))
 echo
-echo "after sort:"
+echo "The sorted list:"
 for num in "${numbers[@]}"
 do
     echo -n "$num "
