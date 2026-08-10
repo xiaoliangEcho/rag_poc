@@ -11,4 +11,6 @@ alias llama_server='/home/zoe/AI/llama.cpp/build/bin/llama-server -m /home/zoe/A
 export PATH=$PATH:/usr/local/go/bin
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
+# for gdb
+export DEBUGINFOD_URLS="https://debuginfod.centos.org"
 go env -w GOPROXY=https://goproxy.cn,direct

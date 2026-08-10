@@ -1,0 +1,20 @@
+
+
+git clone https://github.com/ggml-org/llama.cpp
+cd llama.cpp/
+mkdir build && cd build
+%%  纯 CPU 编译，开启当前 CPU 架构的指令集优化（能稍微提升一点纯 CPU 的推理速度） %%
+cmake .. -DLLAMA_NATIVE=ON
+cmake --build . --config Release -j$(nproc)
+
+%% after build, this packet failed to download, so do it manually %%
+wget https://github.com/ggml-org/llama.cpp/releases/download/b10068/llama-b10068-ui.tar.gz
+tar -xvzf llama-b10068-ui.tar.gz
+ls tools/ui/
+mv llama-b10068 tools/ui/dist
+ls tools/ui/dist/
+cd build/
+cmake --build . --config Release -j$(nproc)
+
+%% download Qwen3-4B-Q4 gguf %%
+wget https://hf-mirror.com/Qwen/Qwen3-4B-GGUF/resolve/main/Qwen3-4B-Q4_K_M.gguf
